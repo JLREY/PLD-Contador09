@@ -1,0 +1,98 @@
+%SIGNAL
+PIN   1 =  clk 
+PIN  18 =  cx 
+PIN  19 =  cy 
+PIN  14 =  q0 
+PIN  15 =  q1 
+PIN  16 =  q2 
+PIN  17 =  q3 
+PIN   2 =  rst 
+PIN   3 =  x 
+PIN   4 =  y 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+cx =>
+    !q0 & q1 & q2 & !q3 & x & !y
+
+cy =>
+    q0 & q1 & q2 & q3 & !x & y
+
+down =>
+    !rst & !x & y
+
+lach =>
+    !rst & !x & !y
+
+q0.d  =>
+    q0 & q3 & !rst & !x & y
+  # q0 & q3 & !rst & x & !y
+  # !q0 & q3 & !rst & !x & !y
+  # q0 & q1 & q2 & !rst & !x & y
+  # q0 & q1 & q2 & !rst & x & !y
+  # !q0 & q1 & q2 & !rst & !x & !y
+
+q0.ar q1.ar q2.ar q3.ar  =>
+    rst
+
+q0.sp q1.sp q2.sp q3.sp  =>
+    0 
+
+q1.d  =>
+    !q0 & !q1 & q3 & !rst & !x
+  # q0 & !q1 & q3 & !rst & !y
+  # !q0 & q1 & q3 & !rst & x & !y
+  # q0 & q1 & q2 & !q3 & !rst & !x & y
+  # q0 & q1 & !q2 & q3 & !rst & !x & y
+
+q1.ar  =>
+    
+q1.sp  =>
+    
+q2.d  =>
+    !q0 & !q2 & q3 & !rst & !x
+  # !q1 & !q2 & q3 & !rst & !x
+  # q0 & !q2 & q3 & !rst & !y
+  # q1 & !q2 & q3 & !rst & !y
+  # q0 & q1 & q2 & !q3 & !rst & !x & y
+  # !q0 & !q1 & q2 & q3 & !rst & x & !y
+
+q2.ar  =>
+    
+q2.sp  =>
+    
+q3.d  =>
+    !q0 & q1 & q2 & !q3 & !rst & !x
+  # q0 & q1 & q2 & !q3 & !rst & !y
+  # q0 & q1 & q2 & q3 & !rst & !x & y
+  # !q0 & !q1 & !q2 & q3 & !rst & x & !y
+
+q3.ar  =>
+    
+q3.sp  =>
+    
+up =>
+    !rst & x & !y
+
+cx.oe  =>
+    1 
+
+cy.oe  =>
+    1 
+
+q0.oe  =>
+    1 
+
+q1.oe  =>
+    1 
+
+q2.oe  =>
+    1 
+
+q3.oe  =>
+    1 
+
+%END
